@@ -1,0 +1,26 @@
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(20, 20, 40, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top-bar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stardust {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.stardust span {
+  color: #ffd700;
+  font-weight: bold;
+}

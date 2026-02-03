@@ -1,0 +1,238 @@
+/* 소우주 전체 */
+.cosmos {
+  background: linear-gradient(180deg, #0a0a20 0%, #15082a 100%);
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+/* 별 배경 */
+.cosmos::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px, 80px 80px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* 헤더 */
+.cosmos-header {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.cosmos-header h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.cosmos-header p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 메뉴 박스 영역 */
+.cosmos-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-box {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-box:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.menu-box:active {
+  transform: translateY(0);
+}
+
+.menu-box.selected {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.menu-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.menu-title {
+  font-size: 18px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.menu-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.menu-feedback {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: #ffd700;
+  color: #1a1a2e;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  animation: pop-in 0.3s ease-out;
+}
+
+@keyframes pop-in {
+  0% { opacity: 0; transform: translateY(-50%) scale(0.8); }
+  100% { opacity: 1; transform: translateY(-50%) scale(1); }
+}
+
+/* 퀘스트 박스 색상 */
+.menu-box.quest {
+  border-left: 4px solid #9b59b6;
+}
+
+/* 부화 박스 색상 */
+.menu-box.hatch {
+  border-left: 4px solid #ffd700;
+}
+
+/* 보유 알 섹션 */
+.eggs-section {
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.egg-count {
+  font-size: 14px;
+  color: #ffd700;
+}
+
+/* 알 목록 */
+.eggs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.egg-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.egg-card.empty {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.egg-image-wrapper {
+  width: 56px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.egg-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  animation: egg-float 2s ease-in-out infinite;
+}
+
+@keyframes egg-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.empty-icon {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.egg-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.egg-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.egg-category {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hatch-button {
+  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  color: #1a1a2e;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hatch-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.hatch-button:active {
+  transform: scale(0.98);
+}
