@@ -9,7 +9,7 @@ function Navigation() {
         className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
       >
         <span className="nav-icon">🏠</span>
-        <span className="nav-label">마이룸</span>
+        <span className="nav-label">방</span>
       </NavLink>
       <NavLink 
         to="/library" 
@@ -17,6 +17,13 @@ function Navigation() {
       >
         <span className="nav-icon">📚</span>
         <span className="nav-label">서재</span>
+      </NavLink>
+      <NavLink 
+        to="/gallery" 
+        className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
+      >
+        <span className="nav-icon">🖼️</span>
+        <span className="nav-label">사진첩</span>
       </NavLink>
       <NavLink 
         to="/cosmos" 

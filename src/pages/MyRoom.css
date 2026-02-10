@@ -165,3 +165,32 @@
   font-size: 10px;
   color: rgba(255, 255, 255, 0.6);
 }
+
+/* 빈 방 메시지 */
+.empty-room-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: egg-wobble 3s ease-in-out infinite;
+}
+
+.empty-room-message p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.empty-room-message .sub-message {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 8px;
+}

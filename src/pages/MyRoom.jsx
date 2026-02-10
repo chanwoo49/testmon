@@ -5,8 +5,12 @@ import './MyRoom.css'
 import rubyjjiImg from '../assets/mons/rubyjji.png'
 import rubyeggImg from '../assets/mons/rubyegg.png'
 
-function MyRoom() {
-  // 독서몬 상태
+function MyRoom({ isGuest }) {
+  // 독서몬 보유 여부
+  const [hasDokseomon, setHasDokseomon] = useState(false)
+  const [dokseomonInfo, setDokseomonInfo] = useState(null)
+  
+  // 독서몬 위치/상태
   const [dokseomon, setDokseomon] = useState({
     x: 50,
     y: 50,
@@ -27,6 +31,35 @@ function MyRoom() {
     "새로운 책이 기다리고 있어!",
     "힘내! 넌 할 수 있어!",
   ]
+
+  // 게스트 데이터에서 독서몬 확인
+  useEffect(() => {
+    if (isGuest) {
+      const guestData = JSON.parse(localStorage.getItem('dokseomon_guest_data') || '{}')
+      if (guestData.dokseomon && guestData.dokseomon.length > 0) {
+        setHasDokseomon(true)
+        setDokseomonInfo(guestData.dokseomon[0])
+      } else {
+        setHasDokseomon(false)
+        setDokseomonInfo(null)
+      }
+    }
+  }, [isGuest])
+
+  // 주기적으로 독서몬 상태 확인 (부화 후 반영)
+  useEffect(() => {
+    const checkInterval = setInterval(() => {
+      if (isGuest) {
+        const guestData = JSON.parse(localStorage.getItem('dokseomon_guest_data') || '{}')
+        if (guestData.dokseomon && guestData.dokseomon.length > 0) {
+          setHasDokseomon(true)
+          setDokseomonInfo(guestData.dokseomon[0])
+        }
+      }
+    }, 1000)
+    
+    return () => clearInterval(checkInterval)
+  }, [isGuest])
   
   // 랜덤 목표 지점 설정
   const setNewTarget = () => {
@@ -44,6 +77,8 @@ function MyRoom() {
   
   // 움직임 애니메이션
   useEffect(() => {
+    if (!hasDokseomon) return
+    
     const moveInterval = setInterval(() => {
       setDokseomon(prev => {
         const dx = prev.targetX - prev.x
@@ -68,10 +103,12 @@ function MyRoom() {
     }, 30)
     
     return () => clearInterval(moveInterval)
-  }, [])
+  }, [hasDokseomon])
   
   // 주기적으로 새 목표 설정
   useEffect(() => {
+    if (!hasDokseomon) return
+    
     const wanderInterval = setInterval(() => {
       if (!dokseomon.isMoving && !dialogue) {
         setNewTarget()
@@ -79,12 +116,14 @@ function MyRoom() {
     }, 3000)
     
     return () => clearInterval(wanderInterval)
-  }, [dokseomon.isMoving, dialogue])
+  }, [hasDokseomon, dokseomon.isMoving, dialogue])
   
   // 초기 목표 설정
   useEffect(() => {
-    setTimeout(() => setNewTarget(), 1000)
-  }, [])
+    if (hasDokseomon) {
+      setTimeout(() => setNewTarget(), 1000)
+    }
+  }, [hasDokseomon])
   
   // 독서몬 클릭 핸들러
   const handleClick = () => {
@@ -105,44 +144,47 @@ function MyRoom() {
         <span className="deco deco-3">🌙</span>
       </div>
       
-      {/* 독서몬 */}
-      <div 
-        className={`dokseomon ${dokseomon.isMoving ? 'walking' : 'idle'}`}
-        style={{
-          left: `${dokseomon.x}%`,
-          top: `${dokseomon.y}%`,
-          transform: `translate(-50%, -50%) scaleX(${dokseomon.direction})`,
-        }}
-        onClick={handleClick}
-      >
-        <img 
-          src={rubyjjiImg} 
-          alt="루비" 
-          className="dokseomon-sprite"
-        />
-        
-        {/* 말풍선 */}
-        {dialogue && (
-          <div className="dialogue-bubble" style={{
+      {/* 독서몬 - 보유한 경우에만 표시 */}
+      {hasDokseomon && (
+        <div 
+          className={`dokseomon ${dokseomon.isMoving ? 'walking' : 'idle'}`}
+          style={{
+            left: `${dokseomon.x}%`,
+            top: `${dokseomon.y}%`,
+            transform: `translate(-50%, -50%) scaleX(${dokseomon.direction})`,
+          }}
+          onClick={handleClick}
+        >
+          <img 
+            src={rubyjjiImg} 
+            alt={dokseomonInfo?.name || '독서몬'} 
+            className="dokseomon-sprite"
+          />
+          
+          {dialogue && (
+            <div className="dialogue-bubble" style={{
+              transform: `scaleX(${dokseomon.direction})`
+            }}>
+              {dialogue}
+            </div>
+          )}
+          
+          <div className="dokseomon-name" style={{
             transform: `scaleX(${dokseomon.direction})`
           }}>
-            {dialogue}
+            {dokseomonInfo?.name || '루비'}
           </div>
-        )}
-        
-        {/* 이름 */}
-        <div className="dokseomon-name" style={{
-          transform: `scaleX(${dokseomon.direction})`
-        }}>
-          루비
         </div>
-      </div>
+      )}
       
-      {/* 알 (구석에 배치) */}
-      <div className="egg-display">
-        <img src={rubyeggImg} alt="알" className="egg-sprite" />
-        <span className="egg-label">부화 대기중</span>
-      </div>
+      {/* 안내 메시지 - 독서몬이 없는 경우 */}
+      {!hasDokseomon && (
+        <div className="empty-room-message">
+          <div className="empty-icon">🥚</div>
+          <p>아직 독서몬이 없어요</p>
+          <p className="sub-message">소우주에서 알을 부화시켜보세요!</p>
+        </div>
+      )}
     </div>
   )
 }

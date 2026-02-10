@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import BGMPlayer from './BGMPlayer'
 import './TopBar.css'
 
 function TopBar({ user, isGuest, onLogout }) {
@@ -6,11 +7,9 @@ function TopBar({ user, isGuest, onLogout }) {
 
   useEffect(() => {
     if (isGuest) {
-      // 게스트 데이터에서 우주먼지 가져오기
       const guestData = JSON.parse(localStorage.getItem('dokseomon_guest_data') || '{}')
       setStardust(guestData.stardust || 200)
     }
-    // TODO: 회원인 경우 Supabase에서 가져오기
   }, [isGuest])
 
   return (
@@ -20,6 +19,7 @@ function TopBar({ user, isGuest, onLogout }) {
         {isGuest && <span className="guest-badge">게스트</span>}
       </div>
       <div className="top-bar-right">
+        <BGMPlayer />
         <div className="stardust">
           ✨ <span>{stardust}</span>
         </div>
