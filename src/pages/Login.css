@@ -52,7 +52,7 @@
   padding: 16px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  background: var(--gradient-cta);
   color: #1a1a2e;
   font-size: 18px;
   font-weight: 700;
@@ -62,7 +62,7 @@
 
 .guest-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 166, 81, 0.4);
 }
 
 .guest-notice {
@@ -134,14 +134,15 @@
 }
 
 .login-box input:focus {
-  border-color: #ffd700;
+  border-color: var(--kyobo-green);
+  color: var(--kyobo-green);
 }
 
 .login-box button[type="submit"] {
   padding: 14px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  background: var(--gradient-cta);
   color: #1a1a2e;
   font-size: 16px;
   font-weight: 700;
@@ -152,7 +153,7 @@
 
 .login-box button[type="submit"]:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 166, 81, 0.4);
 }
 
 .login-box button[type="submit"]:disabled {
@@ -166,7 +167,8 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   font-size: 13px;
-  color: #ffd700;
+  border-color: var(--kyobo-green);
+  color: var(--kyobo-green);
 }
 
 .toggle-text {
@@ -177,8 +179,8 @@
 
 .toggle-button {
   background: none;
-  border: none;
-  color: #ffd700;
+  border-color: var(--kyobo-green);
+  color: var(--kyobo-green);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;

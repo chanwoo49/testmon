@@ -27,7 +27,7 @@
 }
 
 .nav-item.active {
-  color: #ffd700;
+  color: var(--kyobo-green);
 }
 
 .nav-item.active .nav-icon {

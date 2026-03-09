@@ -21,11 +21,11 @@
 
 .guest-badge {
   padding: 4px 8px;
-  background: rgba(255, 215, 0, 0.2);
-  border: 1px solid rgba(255, 215, 0, 0.4);
+  background: var(--kyobo-green-light);
+  border: 1px solid rgba(0, 166, 81, 0.3);
   border-radius: 12px;
   font-size: 11px;
-  color: #ffd700;
+  color: var(--kyobo-green);
   font-weight: 600;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .stardust span {
-  color: #ffd700;
+  color: var(--point-yellow);
   font-weight: bold;
 }
 
