@@ -75,8 +75,8 @@ body {
   font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 15px;
   line-height: 1.6;
-  background-color: #1a1a2e;
-  color: #ffffff;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

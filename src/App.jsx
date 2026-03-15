@@ -8,6 +8,7 @@ import MyRoom from './pages/MyRoom'
 import Library from './pages/Library'
 import Gallery from './pages/Gallery'
 import Cosmos from './pages/Cosmos'
+import More from './pages/More'
 import './App.css'
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
           <Route path="/library" element={<Library isGuest={isGuest} />} />
           <Route path="/gallery" element={<Gallery isGuest={isGuest} />} />
           <Route path="/cosmos" element={<Cosmos isGuest={isGuest} />} />
+          <Route path="/more" element={<More isGuest={isGuest} onLogout={handleLogout} />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

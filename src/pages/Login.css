@@ -4,15 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  background: var(--bg-secondary);
   padding: 20px;
 }
 
 .login-box {
   width: 100%;
   max-width: 340px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
   border-radius: 20px;
   padding: 40px 30px;
   text-align: center;
@@ -38,10 +39,11 @@
 .login-box h1 {
   font-size: 32px;
   margin-bottom: 8px;
+  color: var(--text-primary);
 }
 
 .login-subtitle {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-tertiary);
   font-size: 14px;
   margin-bottom: 32px;
 }
@@ -68,7 +70,7 @@
 .guest-notice {
   margin-top: 12px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted); 
 }
 
 /* 구분선 */
@@ -83,12 +85,12 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--border-light); 
 }
 
 .divider span {
   padding: 0 16px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
   font-size: 13px;
 }
 
@@ -96,10 +98,10 @@
 .auth-button {
   width: 100%;
   padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border-color); 
+  color: var(--text-secondary);
   border-radius: 12px;
   background: transparent;
-  color: white;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -107,8 +109,8 @@
 }
 
 .auth-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--bg-secondary); 
+  border-color: var(--kyobo-green);
 }
 
 /* 폼 */
@@ -120,17 +122,17 @@
 
 .login-box input {
   padding: 14px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
   font-size: 15px;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .login-box input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
 }
 
 .login-box input:focus {
@@ -164,17 +166,17 @@
 .message {
   margin-top: 16px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--kyobo-green-light); 
+  color: var(--kyobo-green);
   border-radius: 8px;
   font-size: 13px;
   border-color: var(--kyobo-green);
-  color: var(--kyobo-green);
 }
 
 .toggle-text {
   margin-top: 24px;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-tertiary);
 }
 
 .toggle-button {

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Library.css'
 
-// 배경 이미지
-import bookroomBg from '../assets/backgrounds/bookroom.png'
+// ❌ bookroom.png import 제거됨
 
 // 샘플 도서 데이터
 const INITIAL_BOOKS = [
@@ -14,7 +13,6 @@ const INITIAL_BOOKS = [
   { id: 6, title: '코스모스', author: '칼 세이건', category: '과학', color: '#5DADE2', emoji: '📔', totalPages: 672 },
 ]
 
-// 샘플 리뷰 데이터
 const INITIAL_REVIEWS = {
   1: [
     { id: 1, date: '2026.02.10', page: 464, content: '드디어 완독! 함수는 작게, 이름은 명확하게. 꼭 기억하자.' },
@@ -33,27 +31,10 @@ function Library({ isGuest }) {
   const [reviews, setReviews] = useState(INITIAL_REVIEWS)
   const [selectedBook, setSelectedBook] = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
-  
-  // 화면 상태: 'list' | 'reviews' | 'addReview' | 'addBook'
   const [viewMode, setViewMode] = useState('list')
-  
-  // 새 리뷰 입력 상태
-  const [newReview, setNewReview] = useState({
-    date: '',
-    page: '',
-    content: '',
-  })
-  
-  // 새 책 입력 상태
-  const [newBook, setNewBook] = useState({
-    title: '',
-    author: '',
-    emoji: '📕',
-    color: '#4A90D9',
-    totalPages: '',
-  })
+  const [newReview, setNewReview] = useState({ date: '', page: '', content: '' })
+  const [newBook, setNewBook] = useState({ title: '', author: '', emoji: '📕', color: '#4A90D9', totalPages: '' })
 
-  // 저장된 데이터 불러오기
   useEffect(() => {
     if (isGuest) {
       const guestData = JSON.parse(localStorage.getItem('dokseomon_guest_data') || '{}')
@@ -62,7 +43,6 @@ function Library({ isGuest }) {
     }
   }, [isGuest])
 
-  // 데이터 저장 함수
   const saveToStorage = (updatedBooks, updatedReviews) => {
     if (isGuest) {
       const guestData = JSON.parse(localStorage.getItem('dokseomon_guest_data') || '{}')
@@ -72,48 +52,37 @@ function Library({ isGuest }) {
     }
   }
 
-  // 책 선택 → 리뷰 목록으로
   const handleBookClick = (book, index) => {
     setSelectedBook(book)
     setSelectedIndex(index)
     setViewMode('reviews')
   }
 
-  // 나가기 (리스트로)
   const handleClose = () => {
     setSelectedBook(null)
     setViewMode('list')
   }
 
-  // 이전 책
   const handlePrev = () => {
     const newIndex = selectedIndex > 0 ? selectedIndex - 1 : books.length - 1
     setSelectedIndex(newIndex)
     setSelectedBook(books[newIndex])
   }
 
-  // 다음 책
   const handleNext = () => {
     const newIndex = selectedIndex < books.length - 1 ? selectedIndex + 1 : 0
     setSelectedIndex(newIndex)
     setSelectedBook(books[newIndex])
   }
 
-  // 새 리뷰 추가 화면으로
   const handleAddReviewClick = () => {
     const today = new Date().toISOString().split('T')[0]
-    setNewReview({
-      date: today,
-      page: '',
-      content: '',
-    })
+    setNewReview({ date: today, page: '', content: '' })
     setViewMode('addReview')
   }
 
-  // 리뷰 등록
   const handleSubmitReview = () => {
     if (!newReview.content.trim() || !newReview.date) return
-
     const formattedDate = newReview.date.replace(/-/g, '.')
     const reviewEntry = {
       id: Date.now(),
@@ -121,34 +90,20 @@ function Library({ isGuest }) {
       page: parseInt(newReview.page) || 0,
       content: newReview.content,
     }
-
     const bookReviews = reviews[selectedBook.id] || []
-    const updatedReviews = {
-      ...reviews,
-      [selectedBook.id]: [reviewEntry, ...bookReviews],
-    }
-
+    const updatedReviews = { ...reviews, [selectedBook.id]: [reviewEntry, ...bookReviews] }
     setReviews(updatedReviews)
     saveToStorage(books, updatedReviews)
     setViewMode('reviews')
   }
 
-  // 책 추가 모달
   const handleAddBookClick = () => {
-    setNewBook({
-      title: '',
-      author: '',
-      emoji: '📕',
-      color: '#4A90D9',
-      totalPages: '',
-    })
+    setNewBook({ title: '', author: '', emoji: '📕', color: '#4A90D9', totalPages: '' })
     setViewMode('addBook')
   }
 
-  // 책 등록
   const handleSubmitBook = () => {
     if (!newBook.title.trim()) return
-
     const addedBook = {
       id: Date.now(),
       title: newBook.title,
@@ -158,7 +113,6 @@ function Library({ isGuest }) {
       color: newBook.color,
       totalPages: parseInt(newBook.totalPages) || 0,
     }
-
     const updatedBooks = [...books, addedBook]
     setBooks(updatedBooks)
     saveToStorage(updatedBooks, reviews)
@@ -169,60 +123,28 @@ function Library({ isGuest }) {
   if (viewMode === 'addReview' && selectedBook) {
     return (
       <div className="page library">
-        <div className="library-background" style={{ backgroundImage: `url(${bookroomBg})` }} />
-        <div className="library-overlay" />
-
         <div className="review-form-container">
-          {/* 상단 닫기 */}
           <div className="form-header">
             <h3>{selectedBook.emoji} {selectedBook.title}</h3>
             <button className="close-btn-x" onClick={() => setViewMode('reviews')}>✕</button>
           </div>
-
           <div className="review-form">
-            {/* 날짜 선택 */}
             <div className="form-group">
               <label>📅 날짜 선택</label>
-              <input
-                type="date"
-                value={newReview.date}
-                onChange={(e) => setNewReview({...newReview, date: e.target.value})}
-              />
+              <input type="date" value={newReview.date} onChange={(e) => setNewReview({...newReview, date: e.target.value})} />
             </div>
-
-            {/* 읽은 페이지 */}
             <div className="form-group">
               <label>📖 읽은 페이지</label>
               <div className="page-input-row">
-                <input
-                  type="number"
-                  placeholder="0"
-                  value={newReview.page}
-                  onChange={(e) => setNewReview({...newReview, page: e.target.value})}
-                />
+                <input type="number" placeholder="0" value={newReview.page} onChange={(e) => setNewReview({...newReview, page: e.target.value})} />
                 <span className="page-total">/ {selectedBook.totalPages || '???'} 페이지</span>
               </div>
             </div>
-
-            {/* 내용 */}
             <div className="form-group">
               <label>✏️ 내용</label>
-              <textarea
-                placeholder="이 책을 읽으며 느낀 점을 적어보세요..."
-                value={newReview.content}
-                onChange={(e) => setNewReview({...newReview, content: e.target.value})}
-                rows={6}
-              />
+              <textarea placeholder="이 책을 읽으며 느낀 점을 적어보세요..." value={newReview.content} onChange={(e) => setNewReview({...newReview, content: e.target.value})} rows={6} />
             </div>
-
-            {/* 등록 버튼 */}
-            <button 
-              className="submit-btn"
-              onClick={handleSubmitReview}
-              disabled={!newReview.content.trim()}
-            >
-              등록하기
-            </button>
+            <button className="submit-btn" onClick={handleSubmitReview} disabled={!newReview.content.trim()}>등록하기</button>
           </div>
         </div>
       </div>
@@ -232,13 +154,8 @@ function Library({ isGuest }) {
   // ========== 리뷰 목록 화면 ==========
   if (viewMode === 'reviews' && selectedBook) {
     const bookReviews = reviews[selectedBook.id] || []
-
     return (
       <div className="page library">
-        <div className="library-background" style={{ backgroundImage: `url(${bookroomBg})` }} />
-        <div className="library-overlay" />
-
-        {/* 상단 네비게이션 */}
         <div className="note-nav">
           <div className="note-nav-left">
             <button className="nav-btn" onClick={handlePrev}>← 뒤로</button>
@@ -246,25 +163,18 @@ function Library({ isGuest }) {
           </div>
           <button className="close-btn-x" onClick={handleClose}>✕</button>
         </div>
-
-        {/* 책 제목 */}
         <div className="book-title-bar">
           <span className="book-emoji">{selectedBook.emoji}</span>
           <span className="book-title">{selectedBook.title}</span>
         </div>
-
-        {/* 리뷰 목록 */}
         <div className="reviews-container">
-          {/* 과거 리뷰들 */}
           {bookReviews.length > 0 ? (
             <div className="reviews-list">
               {bookReviews.map((review) => (
                 <div key={review.id} className="review-card">
                   <div className="review-card-header">
                     <span className="review-date">{review.date}</span>
-                    {review.page > 0 && (
-                      <span className="review-page">{review.page}p</span>
-                    )}
+                    {review.page > 0 && <span className="review-page">{review.page}p</span>}
                   </div>
                   <p className="review-content">{review.content}</p>
                 </div>
@@ -276,8 +186,6 @@ function Library({ isGuest }) {
               <p>첫 독서 기록을 남겨보세요! ✨</p>
             </div>
           )}
-
-          {/* + 새 리뷰 추가 버튼 */}
           <div className="add-review-btn" onClick={handleAddReviewClick}>
             <span className="add-icon">+</span>
             <span className="add-label">새 리뷰 추가</span>
@@ -291,77 +199,41 @@ function Library({ isGuest }) {
   if (viewMode === 'addBook') {
     return (
       <div className="page library">
-        <div className="library-background" style={{ backgroundImage: `url(${bookroomBg})` }} />
-        <div className="library-overlay" />
-
         <div className="add-modal-container">
           <div className="add-modal">
             <div className="add-modal-header">
               <h3>📚 새 책 등록</h3>
               <button className="close-btn-x" onClick={() => setViewMode('list')}>✕</button>
             </div>
-
             <div className="add-modal-body">
               <div className="input-group">
                 <label>책 제목</label>
-                <input
-                  type="text"
-                  placeholder="책 제목을 입력하세요"
-                  value={newBook.title}
-                  onChange={(e) => setNewBook({...newBook, title: e.target.value})}
-                />
+                <input type="text" placeholder="책 제목을 입력하세요" value={newBook.title} onChange={(e) => setNewBook({...newBook, title: e.target.value})} />
               </div>
-
               <div className="input-group">
                 <label>저자</label>
-                <input
-                  type="text"
-                  placeholder="저자를 입력하세요"
-                  value={newBook.author}
-                  onChange={(e) => setNewBook({...newBook, author: e.target.value})}
-                />
+                <input type="text" placeholder="저자를 입력하세요" value={newBook.author} onChange={(e) => setNewBook({...newBook, author: e.target.value})} />
               </div>
-
               <div className="input-group">
                 <label>총 페이지 수</label>
-                <input
-                  type="number"
-                  placeholder="페이지 수를 입력하세요"
-                  value={newBook.totalPages}
-                  onChange={(e) => setNewBook({...newBook, totalPages: e.target.value})}
-                />
+                <input type="number" placeholder="페이지 수를 입력하세요" value={newBook.totalPages} onChange={(e) => setNewBook({...newBook, totalPages: e.target.value})} />
               </div>
-
               <div className="input-group">
                 <label>아이콘</label>
                 <div className="emoji-options">
                   {EMOJI_OPTIONS.map((emoji) => (
-                    <button
-                      key={emoji}
-                      className={`emoji-btn ${newBook.emoji === emoji ? 'selected' : ''}`}
-                      onClick={() => setNewBook({...newBook, emoji})}
-                    >
-                      {emoji}
-                    </button>
+                    <button key={emoji} className={`emoji-btn ${newBook.emoji === emoji ? 'selected' : ''}`} onClick={() => setNewBook({...newBook, emoji})}>{emoji}</button>
                   ))}
                 </div>
               </div>
-
               <div className="input-group">
                 <label>색상</label>
                 <div className="color-options">
                   {COLOR_OPTIONS.map((color) => (
-                    <button
-                      key={color}
-                      className={`color-btn ${newBook.color === color ? 'selected' : ''}`}
-                      style={{ backgroundColor: color }}
-                      onClick={() => setNewBook({...newBook, color})}
-                    />
+                    <button key={color} className={`color-btn ${newBook.color === color ? 'selected' : ''}`} style={{ backgroundColor: color }} onClick={() => setNewBook({...newBook, color})} />
                   ))}
                 </div>
               </div>
-
-              {/* 미리보기 */}
               <div className="preview-section">
                 <label>미리보기</label>
                 <div className="book-preview" style={{ backgroundColor: newBook.color }}>
@@ -370,16 +242,9 @@ function Library({ isGuest }) {
                 </div>
               </div>
             </div>
-
             <div className="add-modal-footer">
               <button className="cancel-btn" onClick={() => setViewMode('list')}>취소</button>
-              <button 
-                className="confirm-btn"
-                onClick={handleSubmitBook}
-                disabled={!newBook.title.trim()}
-              >
-                등록하기
-              </button>
+              <button className="confirm-btn" onClick={handleSubmitBook} disabled={!newBook.title.trim()}>등록하기</button>
             </div>
           </div>
         </div>
@@ -390,20 +255,12 @@ function Library({ isGuest }) {
   // ========== 도서 리스트 화면 ==========
   return (
     <div className="page library">
-      <div className="library-background" style={{ backgroundImage: `url(${bookroomBg})` }} />
-      <div className="library-overlay" />
-
+      {/* ❌ library-background, library-overlay 제거됨 */}
       <div className="library-content">
         <h2 className="library-title">📚 내 서재</h2>
-        
         <div className="book-grid">
           {books.map((book, index) => (
-            <div 
-              key={book.id}
-              className="book-card"
-              style={{ backgroundColor: book.color }}
-              onClick={() => handleBookClick(book, index)}
-            >
+            <div key={book.id} className="book-card" style={{ backgroundColor: book.color }} onClick={() => handleBookClick(book, index)}>
               <span className="book-card-emoji">{book.emoji}</span>
               <span className="book-card-title">{book.title}</span>
               <span className="book-card-author">{book.author}</span>
@@ -412,7 +269,6 @@ function Library({ isGuest }) {
               )}
             </div>
           ))}
-
           <div className="book-card add-card" onClick={handleAddBookClick}>
             <span className="add-icon">+</span>
             <span className="add-label">책 추가</span>

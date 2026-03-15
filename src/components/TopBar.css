@@ -1,10 +1,12 @@
+/* ── Phase 2: 라이트 테마 TopBar ── */
+
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  background: rgba(20, 20, 40, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 20px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .top-bar-left {
@@ -16,14 +18,14 @@
 .top-bar-title {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .guest-badge {
   padding: 4px 8px;
   background: var(--kyobo-green-light);
   border: 1px solid rgba(0, 166, 81, 0.3);
-  border-radius: 12px;
+  border-radius: var(--radius-full);
   font-size: 11px;
   color: var(--kyobo-green);
   font-weight: 600;
@@ -32,14 +34,15 @@
 .top-bar-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .stardust {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 16px;
+  font-size: 15px;
+  color: var(--text-secondary);
 }
 
 .stardust span {
@@ -49,16 +52,16 @@
 
 .logout-button {
   padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.7);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .logout-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }

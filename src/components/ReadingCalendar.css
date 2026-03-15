@@ -1,0 +1,147 @@
+/* ── 독서 잔디 달력 ── */
+
+.reading-calendar {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* 헤더 */
+.cal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.cal-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--kyobo-green);
+  background: var(--kyobo-green-light);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* 요일 라벨 */
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 2px 0;
+}
+
+/* 달력 그리드 */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+/* 셀 공통 */
+.cal-cell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--bg-secondary);
+  transition: background 0.2s;
+}
+
+.cal-day-num {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+/* 빈 셀 */
+.cal-empty {
+  background: transparent;
+}
+
+/* 독서한 날 — 파란색 */
+.cal-read {
+  background: #3B82F6;
+}
+
+.cal-read .cal-day-num {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* 오늘 */
+.cal-today {
+  border: 2px solid var(--kyobo-green);
+}
+
+.cal-today .cal-day-num {
+  color: var(--kyobo-green);
+  font-weight: 700;
+}
+
+.cal-today.cal-read {
+  border-color: #2563EB;
+}
+
+.cal-today.cal-read .cal-day-num {
+  color: #ffffff;
+}
+
+/* 미래 날짜 */
+.cal-future {
+  background: var(--bg-tertiary);
+  opacity: 0.4;
+}
+
+/* 범례 */
+.cal-legend {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.legend-dot-empty {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.legend-dot-read {
+  background: #3B82F6;
+}
+
+.legend-item span {
+  font-size: 10px;
+  color: var(--text-muted);
+}

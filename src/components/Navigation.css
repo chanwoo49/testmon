@@ -1,29 +1,33 @@
+/* ── Phase 2: 라이트 테마 + 5탭 + 중앙 FAB ── */
+
 .navigation {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
-  padding: 12px 20px 20px;
-  background: rgba(20, 20, 40, 0.98);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  
+  padding: 8px 12px 12px;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+
   /* 하단 Safe Area 대응 (아이폰 노치 등) */
-  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 8px 16px;
-  border-radius: 12px;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
   transition: all 0.2s ease;
+  min-width: 48px;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-tertiary);
 }
 
 .nav-item.active {
@@ -35,11 +39,48 @@
 }
 
 .nav-icon {
-  font-size: 24px;
+  font-size: 22px;
   transition: transform 0.2s ease;
 }
 
 .nav-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
+}
+
+/* ── 중앙 FAB (마이룸) ── */
+.nav-fab {
+  position: relative;
+  margin-top: -24px;  /* 위로 튀어나옴 */
+  padding-top: 0;
+}
+
+.fab-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--kyobo-purple), var(--kyobo-green));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 166, 81, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-fab:hover .fab-circle {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 166, 81, 0.4);
+}
+
+.nav-fab.active .fab-circle {
+  box-shadow: 0 4px 20px rgba(0, 166, 81, 0.5);
+}
+
+.fab-icon {
+  font-size: 24px;
+  filter: brightness(0) invert(1);  /* 아이콘 흰색 처리 */
+}
+
+.nav-fab .nav-label {
+  margin-top: 2px;
 }

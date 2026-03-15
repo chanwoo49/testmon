@@ -1,67 +1,178 @@
-/* 마이룸 전체 */
+/* ── Phase 3: 마이룸 — 카드 기반 대시보드 ── */
+
 .myroom {
-  background: linear-gradient(180deg, #2c1810 0%, #1a0f0a 100%);
+  background: linear-gradient(180deg, #E8F5E9 0%, var(--bg-primary) 40%);
   position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.myroom-scroll {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 섹션 공통 */
+.myroom-section {
+  flex-shrink: 0;
+}
+
+/* ── 하단 영역: 책 카드 + 캐릭터 ── */
+.myroom-bottom {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  min-height: 200px;
+}
+
+/* ── 최근 읽은 책 카드 ── */
+.recent-book-card {
+  flex: 1;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.recent-book-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.recent-book-emoji {
+  font-size: 20px;
+}
+
+.recent-book-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recent-book-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+  /* 2줄 말줄임 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.recent-book-author {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin: 0 0 12px 0;
+}
+
+/* 진행률 바 */
+.recent-book-progress {
+  margin-top: auto;
+}
+
+.progress-bar {
   width: 100%;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
   height: 100%;
+  background: linear-gradient(90deg, var(--kyobo-green), #4CAF50);
+  border-radius: 3px;
+  transition: width 0.5s ease;
 }
 
-/* 배경 장식 */
-.decorations {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.progress-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.deco {
-  position: absolute;
-  font-size: 28px;
-  opacity: 0.7;
-  animation: float 4s ease-in-out infinite;
+.recent-book-date {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 6px;
 }
 
-.deco-1 {
-  top: 10%;
-  left: 15%;
-  animation-delay: 0s;
-}
-
-.deco-2 {
-  top: 8%;
-  left: 50%;
-  animation-delay: 1.3s;
-}
-
-.deco-3 {
-  top: 12%;
-  right: 15%;
-  animation-delay: 2.6s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* 알 표시 */
-.egg-display {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+/* 빈 상태 */
+.recent-book-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0.8;
-  z-index: 5;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  gap: 8px;
 }
 
-.egg-sprite {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  image-rendering: pixelated;
+.recent-book-empty .recent-book-emoji {
+  font-size: 32px;
+}
+
+.recent-book-empty p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── 캐릭터 영역 ── */
+.character-area {
+  width: 140px;
+  flex-shrink: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+/* Pixi 캔버스가 이 영역 안에서 렌더링됨 */
+.character-area .dokseomon-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* 캐릭터 없을 때 */
+.character-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  text-align: center;
+  gap: 8px;
+}
+
+.empty-egg-icon {
+  font-size: 40px;
   animation: egg-wobble 3s ease-in-out infinite;
 }
 
@@ -70,90 +181,9 @@
   50% { transform: rotate(3deg); }
 }
 
-.egg-label {
-  margin-top: 6px;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* 빈 방 메시지 */
-.empty-room-message {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 10;
-}
-
-.empty-icon {
-  font-size: 64px;
-  margin-bottom: 16px;
-  animation: egg-wobble 3s ease-in-out infinite;
-}
-
-.empty-room-message p {
-  font-size: 18px;
-  font-weight: 600;
+.character-empty p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
   margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.empty-room-message .sub-message {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 8px;
-}
-
-/* Pixi 캔버스 컨테이너 */
-.dokseomon-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-}
-
-/* 말풍선 오버레이 (화면 중앙 하단에 고정) */
-.dialogue-overlay {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  pointer-events: none;
-  animation: bubble-float-in 0.3s ease-out;
-}
-
-.dialogue-bubble-float {
-  background: white;
-  color: #333;
-  padding: 12px 20px;
-  border-radius: 20px;
-  font-size: 15px;
-  font-weight: 500;
-  white-space: nowrap;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-}
-
-.dialogue-bubble-float::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 8px solid transparent;
-  border-top-color: white;
-}
-
-@keyframes bubble-float-in {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(12px) scale(0.85);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
 }
