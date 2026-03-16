@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { BookOpen, Image, Home, Orbit, Menu } from 'lucide-react'
 import './Navigation.css'
 
 function Navigation() {
@@ -8,7 +9,7 @@ function Navigation() {
         to="/library" 
         className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
       >
-        <span className="nav-icon">📚</span>
+        <BookOpen className="nav-icon" size={22} strokeWidth={1.8} />
         <span className="nav-label">서재</span>
       </NavLink>
 
@@ -16,7 +17,7 @@ function Navigation() {
         to="/gallery" 
         className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
       >
-        <span className="nav-icon">🖼️</span>
+        <Image className="nav-icon" size={22} strokeWidth={1.8} />
         <span className="nav-label">사진첩</span>
       </NavLink>
 
@@ -26,7 +27,7 @@ function Navigation() {
         className={({ isActive }) => isActive ? 'nav-item nav-fab active' : 'nav-item nav-fab'}
       >
         <div className="fab-circle">
-          <span className="fab-icon">🏠</span>
+          <Home className="fab-icon" size={24} strokeWidth={2} />
         </div>
         <span className="nav-label">방</span>
       </NavLink>
@@ -35,7 +36,7 @@ function Navigation() {
         to="/cosmos" 
         className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
       >
-        <span className="nav-icon">🌌</span>
+        <Orbit className="nav-icon" size={22} strokeWidth={1.8} />
         <span className="nav-label">소우주</span>
       </NavLink>
 
@@ -43,7 +44,7 @@ function Navigation() {
         to="/more" 
         className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
       >
-        <span className="nav-icon">☰</span>
+        <Menu className="nav-icon" size={22} strokeWidth={1.8} />
         <span className="nav-label">더보기</span>
       </NavLink>
     </nav>

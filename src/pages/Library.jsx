@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BookOpen, Calendar, BookOpenCheck, X, Sparkles } from 'lucide-react'
 import './Library.css'
 
 // ❌ bookroom.png import 제거됨
@@ -126,15 +127,15 @@ function Library({ isGuest }) {
         <div className="review-form-container">
           <div className="form-header">
             <h3>{selectedBook.emoji} {selectedBook.title}</h3>
-            <button className="close-btn-x" onClick={() => setViewMode('reviews')}>✕</button>
+            <button className="close-btn-x" onClick={() => setViewMode('reviews')}><X size={18} strokeWidth={2} /></button>
           </div>
           <div className="review-form">
             <div className="form-group">
-              <label>📅 날짜 선택</label>
+              <label><Calendar size={14} strokeWidth={2} /> 날짜 선택</label>
               <input type="date" value={newReview.date} onChange={(e) => setNewReview({...newReview, date: e.target.value})} />
             </div>
             <div className="form-group">
-              <label>📖 읽은 페이지</label>
+              <label><BookOpenCheck size={14} strokeWidth={2} /> 읽은 페이지</label>
               <div className="page-input-row">
                 <input type="number" placeholder="0" value={newReview.page} onChange={(e) => setNewReview({...newReview, page: e.target.value})} />
                 <span className="page-total">/ {selectedBook.totalPages || '???'} 페이지</span>
@@ -161,7 +162,7 @@ function Library({ isGuest }) {
             <button className="nav-btn" onClick={handlePrev}>← 뒤로</button>
             <button className="nav-btn" onClick={handleNext}>앞으로 →</button>
           </div>
-          <button className="close-btn-x" onClick={handleClose}>✕</button>
+          <button className="close-btn-x" onClick={handleClose}><X size={18} strokeWidth={2} /></button>
         </div>
         <div className="book-title-bar">
           <span className="book-emoji">{selectedBook.emoji}</span>
@@ -183,7 +184,7 @@ function Library({ isGuest }) {
           ) : (
             <div className="empty-reviews">
               <p>아직 작성된 리뷰가 없어요</p>
-              <p>첫 독서 기록을 남겨보세요! ✨</p>
+              <p>첫 독서 기록을 남겨보세요!</p>
             </div>
           )}
           <div className="add-review-btn" onClick={handleAddReviewClick}>
@@ -202,8 +203,8 @@ function Library({ isGuest }) {
         <div className="add-modal-container">
           <div className="add-modal">
             <div className="add-modal-header">
-              <h3>📚 새 책 등록</h3>
-              <button className="close-btn-x" onClick={() => setViewMode('list')}>✕</button>
+              <h3><BookOpen size={18} strokeWidth={1.8} /> 새 책 등록</h3>
+              <button className="close-btn-x" onClick={() => setViewMode('list')}><X size={18} strokeWidth={2} /></button>
             </div>
             <div className="add-modal-body">
               <div className="input-group">
@@ -257,7 +258,7 @@ function Library({ isGuest }) {
     <div className="page library">
       {/* ❌ library-background, library-overlay 제거됨 */}
       <div className="library-content">
-        <h2 className="library-title">📚 내 서재</h2>
+        <h2 className="library-title"><BookOpen size={20} strokeWidth={1.8} /> 내 서재</h2>
         <div className="book-grid">
           {books.map((book, index) => (
             <div key={book.id} className="book-card" style={{ backgroundColor: book.color }} onClick={() => handleBookClick(book, index)}>

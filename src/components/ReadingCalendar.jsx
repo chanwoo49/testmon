@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Calendar } from 'lucide-react'
 import './ReadingCalendar.css'
 
 /**
@@ -113,7 +114,7 @@ function ReadingCalendar({ isGuest }) {
     <div className="reading-calendar">
       {/* 헤더 */}
       <div className="cal-header">
-        <h3 className="cal-title">📅 {monthName}</h3>
+        <h3 className="cal-title"><Calendar size={16} strokeWidth={2} /> {monthName}</h3>
         <span className="cal-count">{readCount}일 독서</span>
       </div>
 

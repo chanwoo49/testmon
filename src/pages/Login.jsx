@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BookOpen, Play } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './Login.css'
 
@@ -58,14 +59,14 @@ function Login({ onLogin, onGuestLogin }) {
     return (
       <div className="login-container">
         <div className="login-box">
-          <h1>📚 독서몬</h1>
+          <h1><BookOpen size={28} strokeWidth={1.8} className="login-logo-icon" /> 독서몬</h1>
           <p className="login-subtitle">책을 읽으면 독서몬이 태어나요</p>
           
           <button 
             className="guest-button"
             onClick={handleGuestStart}
           >
-            🎮 게스트로 시작하기
+            <Play size={16} strokeWidth={2} /> 게스트로 시작하기
           </button>
           
           <p className="guest-notice">
@@ -98,7 +99,7 @@ function Login({ onLogin, onGuestLogin }) {
           ← 뒤로
         </button>
         
-        <h1>📚 독서몬</h1>
+        <h1><BookOpen size={28} strokeWidth={1.8} className="login-logo-icon" /> 독서몬</h1>
         <p className="login-subtitle">
           {isSignUp ? '새 계정 만들기' : '다시 오셨군요!'}
         </p>

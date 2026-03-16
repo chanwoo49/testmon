@@ -59,7 +59,7 @@ function App() {
   if (loading) {
     return (
       <div className="loading-screen">
-        <p>📚 로딩 중...</p>
+        <p>로딩 중...</p>
       </div>
     )
   }

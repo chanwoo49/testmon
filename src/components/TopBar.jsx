@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Sparkles } from 'lucide-react'
 import BGMPlayer from './BGMPlayer'
 import './TopBar.css'
 
@@ -21,7 +22,8 @@ function TopBar({ user, isGuest, onLogout }) {
       <div className="top-bar-right">
         <BGMPlayer />
         <div className="stardust">
-          ✨ <span>{stardust}</span>
+          <Sparkles size={16} strokeWidth={2} />
+          <span>{stardust}</span>
         </div>
         <button className="logout-button" onClick={onLogout}>
           {isGuest ? '나가기' : '로그아웃'}

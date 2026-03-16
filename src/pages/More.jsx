@@ -1,3 +1,4 @@
+import { User, BarChart3, Bell, Palette, HelpCircle, FileText } from 'lucide-react'
 import './More.css'
 
 function More({ isGuest, onLogout }) {
@@ -8,7 +9,9 @@ function More({ isGuest, onLogout }) {
 
         {/* 프로필 카드 */}
         <div className="more-card profile-card">
-          <div className="profile-avatar">👤</div>
+          <div className="profile-avatar">
+            <User size={24} strokeWidth={1.8} />
+          </div>
           <div className="profile-info">
             <span className="profile-name">{isGuest ? '게스트' : '사용자'}</span>
             <span className="profile-sub">
@@ -21,19 +24,19 @@ function More({ isGuest, onLogout }) {
         <div className="more-section">
           <div className="more-card">
             <div className="more-menu-item">
-              <span className="menu-icon-sm">📊</span>
+              <span className="menu-icon-sm"><BarChart3 size={18} strokeWidth={1.8} /></span>
               <span className="menu-text">독서 통계</span>
               <span className="menu-arrow">›</span>
             </div>
             <div className="more-divider" />
             <div className="more-menu-item">
-              <span className="menu-icon-sm">🔔</span>
+              <span className="menu-icon-sm"><Bell size={18} strokeWidth={1.8} /></span>
               <span className="menu-text">알림 설정</span>
               <span className="menu-arrow">›</span>
             </div>
             <div className="more-divider" />
             <div className="more-menu-item">
-              <span className="menu-icon-sm">🎨</span>
+              <span className="menu-icon-sm"><Palette size={18} strokeWidth={1.8} /></span>
               <span className="menu-text">테마 설정</span>
               <span className="menu-arrow">›</span>
             </div>
@@ -43,13 +46,13 @@ function More({ isGuest, onLogout }) {
         <div className="more-section">
           <div className="more-card">
             <div className="more-menu-item">
-              <span className="menu-icon-sm">❓</span>
+              <span className="menu-icon-sm"><HelpCircle size={18} strokeWidth={1.8} /></span>
               <span className="menu-text">도움말</span>
               <span className="menu-arrow">›</span>
             </div>
             <div className="more-divider" />
             <div className="more-menu-item">
-              <span className="menu-icon-sm">📋</span>
+              <span className="menu-icon-sm"><FileText size={18} strokeWidth={1.8} /></span>
               <span className="menu-text">이용약관</span>
               <span className="menu-arrow">›</span>
             </div>

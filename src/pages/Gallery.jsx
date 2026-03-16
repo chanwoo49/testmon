@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Image as ImageIcon, X } from 'lucide-react'
 import './Gallery.css'
 
 // 샘플 이미지
@@ -46,7 +47,7 @@ function Gallery({ isGuest }) {
         
         {/* 상단 닫기 버튼 */}
         <div className="gallery-detail-header">
-          <button className="close-btn" onClick={handleClose}>✕</button>
+          <button className="close-btn" onClick={handleClose}><X size={18} strokeWidth={2} /></button>
         </div>
 
         {/* 그래픽 카드 */}
@@ -87,7 +88,7 @@ function Gallery({ isGuest }) {
       <div className="gallery-overlay" />
       
       <div className="gallery-content">
-        <h2 className="gallery-title">🖼️ 사진첩</h2>
+        <h2 className="gallery-title"><ImageIcon size={20} strokeWidth={1.8} /> 사진첩</h2>
         
         <div className="gallery-grid">
           {/* 기존 이미지들 */}

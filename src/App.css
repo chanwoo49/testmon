@@ -1,4 +1,4 @@
-/* ── Phase 2: 라이트 테마 App 컨테이너 ── */
+/* ── 범용 모바일-퍼스트 컨테이너 ── */
 
 .app-container {
   width: 100%;
@@ -9,7 +9,6 @@
   flex-direction: column;
   position: relative;
   background: var(--bg-primary);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
 }
 
 .main-content {
@@ -30,8 +29,36 @@
   color: var(--text-primary);
 }
 
+/* ── 데스크톱: 폰 프레임 스타일 ── */
 @media (min-width: 431px) {
   body {
-    background: var(--bg-secondary);
+    background: var(--bg-tertiary);
+    /* 화면 정중앙 배치 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .app-container {
+    max-height: 900px;           /* 세로 제한 */
+    border-radius: 20px;         /* 둥근 모서리 */
+    box-shadow:
+      0 0 0 1px var(--border-light),
+      0 20px 60px rgba(0, 0, 0, 0.12);  /* 그림자 */
+    overflow: hidden;            /* border-radius 적용 */
+  }
+}
+
+/* ── 아주 작은 데스크톱 (높이가 900px 미만) ── */
+@media (min-width: 431px) and (max-height: 920px) {
+  .app-container {
+    max-height: calc(100dvh - 20px);  /* 상하 여백 10px씩 */
+    border-radius: 16px;
   }
 }

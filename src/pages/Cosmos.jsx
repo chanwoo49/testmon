@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Sparkles, Orbit, Scroll, X, Egg } from 'lucide-react'
 import './Cosmos.css'
 
 // 이미지 import
@@ -145,7 +146,7 @@ function Cosmos({ isGuest }) {
         <div className="cosmos-overlay" />
         <div className="quest-timer-bar">
           {questCompleted ? (
-            <span className="timer-complete">✨ 읽기 완료! 보상을 받으세요</span>
+            <span className="timer-complete"><Sparkles size={16} strokeWidth={2} /> 읽기 완료! 보상을 받으세요</span>
           ) : (
             <>
               <span className="timer-text">{questTimer}초</span>
@@ -164,7 +165,7 @@ function Cosmos({ isGuest }) {
         </div>
         <div className="quest-footer">
           {questCompleted ? (
-            <button className="claim-btn" onClick={handleClaimReward}>🥚 알 받기</button>
+            <button className="claim-btn" onClick={handleClaimReward}><Egg size={16} strokeWidth={2} /> 알 받기</button>
           ) : (
             <button className="back-btn" onClick={() => setViewMode('main')}>돌아가기</button>
           )}
@@ -180,8 +181,8 @@ function Cosmos({ isGuest }) {
         <div className="cosmos-overlay" />
         <div className="dokseomon-list-container">
           <div className="section-header">
-            <h2>🐣 나의 독서몬</h2>
-            <button className="close-btn-x" onClick={() => setViewMode('main')}>✕</button>
+            <h2>나의 독서몬</h2>
+            <button className="close-btn-x" onClick={() => setViewMode('main')}><X size={18} strokeWidth={2} /></button>
           </div>
           <div className="dokseomon-grid">
             {dokseomon.length > 0 ? (
@@ -199,7 +200,7 @@ function Cosmos({ isGuest }) {
             ) : (
               <div className="empty-dokseomon">
                 <p>아직 독서몬이 없어요</p>
-                <p>알을 부화시켜보세요! 🥚</p>
+                <p>알을 부화시켜보세요!</p>
               </div>
             )}
           </div>
@@ -215,8 +216,8 @@ function Cosmos({ isGuest }) {
       <div className="cosmos-content">
         {/* 헤더 */}
         <div className="cosmos-header">
-          <h2>🌌 소우주</h2>
-          <div className="stardust-display">✨ <span>{stardust}</span></div>
+          <h2><Orbit size={20} strokeWidth={2} className="cosmos-title-icon" /> 소우주</h2>
+          <div className="stardust-display"><Sparkles size={16} strokeWidth={2} /> <span>{stardust}</span></div>
         </div>
 
         {/* 퀘스트 박스 */}
@@ -225,7 +226,7 @@ function Cosmos({ isGuest }) {
           onClick={() => !questClaimed && setViewMode('quest')}
           disabled={questClaimed}
         >
-          <span className="menu-icon">📜</span>
+          <span className="menu-icon"><Scroll size={24} strokeWidth={1.8} /></span>
           <div className="menu-text">
             <span className="menu-title">퀘스트</span>
             <span className="menu-desc">
@@ -239,7 +240,7 @@ function Cosmos({ isGuest }) {
           className="menu-box dokseomon-box"
           onClick={() => setViewMode('dokseomon')}
         >
-          <span className="menu-icon">🐣</span>
+          <span className="menu-icon"><Egg size={24} strokeWidth={1.8} /></span>
           <div className="menu-text">
             <span className="menu-title">독서몬</span>
             <span className="menu-desc">보유 독서몬 {dokseomon.length}마리</span>
@@ -249,7 +250,7 @@ function Cosmos({ isGuest }) {
         {/* 보유 알 섹션 */}
         <div className="eggs-section">
           <div className="section-title-box">
-            <h3 className="section-title">🥚 보유 알</h3>
+            <h3 className="section-title"><Egg size={16} strokeWidth={2} /> 보유 알</h3>
             <span className="egg-count">{eggs.length}개</span>
           </div>
 
@@ -268,7 +269,7 @@ function Cosmos({ isGuest }) {
                   </div>
                   <button className="hatch-btn" onClick={() => handleHatch(egg)}>
                     <span className="hatch-label">부화</span>
-                    <span className="hatch-cost">✨ {egg.cost}</span>
+                    <span className="hatch-cost"><Sparkles size={12} strokeWidth={2} /> {egg.cost}</span>
                   </button>
                 </div>
               ))}

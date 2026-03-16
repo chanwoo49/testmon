@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Egg } from 'lucide-react'
 import './MyRoom.css'
 
 // 컴포넌트
@@ -137,7 +138,7 @@ function MyRoom({ isGuest }) {
               <DokseomonCanvas characterData={dokseomonInfo} />
             ) : (
               <div className="character-empty">
-                <div className="empty-egg-icon">🥚</div>
+                <div className="empty-egg-icon"><Egg size={40} strokeWidth={1.5} /></div>
                 <p>소우주에서<br/>알을 부화시켜요!</p>
               </div>
             )}

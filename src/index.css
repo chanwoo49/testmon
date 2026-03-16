@@ -1,52 +1,44 @@
-/* ── Phase 1: 폰트 임포트 ── */
+/* ── 폰트 임포트 ── */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
 
-/* ── Phase 1: 디자인 토큰 (CSS Variables) ── */
+/* ── 디자인 토큰 ── */
 :root {
-  /* ── 교보 브랜드 ── */
   --kyobo-green: #00A651;
   --kyobo-green-light: #E8F5E9;
   --kyobo-green-dark: #00873F;
   --kyobo-purple: #6B3FA0;
   --kyobo-blue: #4A6CF7;
 
-  /* ── Surface ── */
   --bg-primary: #FFFFFF;
   --bg-secondary: #F7F8FA;
   --bg-tertiary: #ECEEF2;
   --border-color: #D1D5DB;
   --border-light: #E5E7EB;
 
-  /* ── Text ── */
   --text-primary: #1A1A1A;
   --text-secondary: #333333;
   --text-tertiary: #666666;
   --text-muted: #999999;
 
-  /* ── Accent ── */
   --price-red: #E8362D;
   --badge-blue: #3B82F6;
   --point-yellow: #F5A623;
   --cta-green: #00A651;
 
-  /* ── Gradient ── */
   --gradient-mypage: linear-gradient(135deg, #6B3FA0, #3BB2B8);
   --gradient-topbar: linear-gradient(90deg, #2D2D6B, #4A4A8A);
   --gradient-cta: linear-gradient(135deg, #00A651 0%, #00873F 100%);
 
-  /* ── Shadow ── */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
   --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
 
-  /* ── Radius ── */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* ── Spacing ── */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
@@ -67,11 +59,9 @@
 html, body, #root {
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 body {
-  /* Phase 1: 폰트 교체 (Segoe UI → Noto Sans KR) */
   font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 15px;
   line-height: 1.6;
@@ -79,9 +69,9 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
-/* 모바일 뷰포트 높이 대응 */
 #root {
   height: 100dvh;
 }

@@ -45,6 +45,11 @@
   color: var(--text-secondary);
 }
 
+.stardust svg {
+  color: var(--point-yellow);
+  flex-shrink: 0;
+}
+
 .stardust span {
   color: var(--point-yellow);
   font-weight: bold;
