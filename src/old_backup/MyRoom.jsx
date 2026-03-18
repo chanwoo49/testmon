@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Egg, BookOpen } from 'lucide-react'
+import { Egg } from 'lucide-react'
 import './MyRoom.css'
 
 // 컴포넌트
@@ -49,6 +49,7 @@ function MyRoom({ isGuest }) {
     const reviews = guestData.reviews || {}
 
     if (books.length > 0) {
+      // 가장 최근 리뷰가 달린 책 찾기
       let latestBook = null
       let latestReview = null
       let latestDate = ''
@@ -56,7 +57,7 @@ function MyRoom({ isGuest }) {
       books.forEach(book => {
         const bookReviews = reviews[book.id]
         if (bookReviews && bookReviews.length > 0) {
-          const newest = bookReviews[0]
+          const newest = bookReviews[0] // 리뷰는 최신순 정렬
           if (!latestDate || newest.date > latestDate) {
             latestDate = newest.date
             latestBook = book
@@ -72,6 +73,7 @@ function MyRoom({ isGuest }) {
           lastDate: latestReview.date,
         })
       } else {
+        // 리뷰 없으면 첫 번째 책
         setRecentBook(books[0])
       }
     }
@@ -86,66 +88,62 @@ function MyRoom({ isGuest }) {
 
   return (
     <div className="page myroom">
+      {/* ── 상단: 독서 잔디 달력 ── */}
       <div className="myroom-scroll">
-        {/* ── 달력 ── */}
         <div className="myroom-section">
           <ReadingCalendar isGuest={isGuest} />
         </div>
 
-        {/* ── 캐릭터 영역 (전체 폭) ── */}
-        <div className="character-area">
-          {/* 별가루 파티클 */}
-          <div className="sparkle s1" />
-          <div className="sparkle s2" />
-          <div className="sparkle s3" />
-          <div className="sparkle s4" />
+        {/* ── 하단: 최근 책 카드 + 캐릭터 영역 ── */}
+        <div className="myroom-bottom">
 
-          {/* 잔디 바닥 */}
-          <div className="ground-layer" />
-
-          {/* 캐릭터 그림자 */}
-          <div className="character-shadow" />
-
-          {hasDokseomon ? (
-            <DokseomonCanvas characterData={dokseomonInfo} />
-          ) : (
-            <div className="character-empty">
-              <div className="empty-egg-icon"><Egg size={48} strokeWidth={1.5} /></div>
-              <p>소우주에서 알을 부화시켜요!</p>
-            </div>
-          )}
-        </div>
-
-        {/* ── 최근 읽은 책 (컴팩트 카드) ── */}
-        <div className="recent-book-bar">
-          {recentBook ? (
-            <>
-              <span className="book-bar-emoji">{recentBook.emoji || '📖'}</span>
-              <div className="book-bar-info">
-                <span className="book-bar-title">{recentBook.title}</span>
-                <span className="book-bar-sub">{recentBook.author}</span>
-              </div>
-              {recentBook.totalPages > 0 && (
-                <div className="book-bar-progress">
-                  <div className="progress-bar-mini">
-                    <div
-                      className="progress-fill-mini"
-                      style={{ width: `${getProgress()}%` }}
-                    />
-                  </div>
-                  <span className="progress-text-mini">{getProgress()}%</span>
+          {/* 왼쪽: 최근 읽은 책 */}
+          <div className="recent-book-card">
+            {recentBook ? (
+              <>
+                <div className="recent-book-header">
+                  <span className="recent-book-emoji">{recentBook.emoji || '📖'}</span>
+                  <span className="recent-book-label">최근 읽은 책</span>
                 </div>
-              )}
-            </>
-          ) : (
-            <>
-              <BookOpen size={20} strokeWidth={1.8} className="book-bar-icon" />
-              <div className="book-bar-info">
-                <span className="book-bar-title">서재에서 책을 등록해보세요</span>
-                <span className="book-bar-sub">독서를 시작하면 진행률이 표시돼요</span>
+                <h4 className="recent-book-title">{recentBook.title}</h4>
+                <p className="recent-book-author">{recentBook.author}</p>
+                {recentBook.totalPages > 0 && (
+                  <div className="recent-book-progress">
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{ width: `${getProgress()}%` }}
+                      />
+                    </div>
+                    <span className="progress-text">
+                      {recentBook.lastPage || 0} / {recentBook.totalPages}p ({getProgress()}%)
+                    </span>
+                  </div>
+                )}
+                {recentBook.lastDate && (
+                  <span className="recent-book-date">마지막 기록: {recentBook.lastDate}</span>
+                )}
+              </>
+            ) : (
+              <div className="recent-book-empty">
+                <span className="recent-book-emoji">📚</span>
+                <p>서재에서 책을 등록하고<br/>독서를 시작해보세요!</p>
               </div>
-            </>
-          )}
+            )}
+          </div>
+
+          {/* 오른쪽: 캐릭터 영역 */}
+          <div className="character-area">
+            {hasDokseomon ? (
+              <DokseomonCanvas characterData={dokseomonInfo} />
+            ) : (
+              <div className="character-empty">
+                <div className="empty-egg-icon"><Egg size={40} strokeWidth={1.5} /></div>
+                <p>소우주에서<br/>알을 부화시켜요!</p>
+              </div>
+            )}
+          </div>
+
         </div>
       </div>
     </div>
