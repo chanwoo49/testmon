@@ -1,4 +1,6 @@
-/* ── Phase 2: 라이트 테마 + 5탭 + 중앙 FAB + Lucide 아이콘 ── */
+/* ══════════════════════════════════════
+   Navigation v2.1 — 5탭 + 중앙 FAB
+   ══════════════════════════════════════ */
 
 .navigation {
   display: flex;
@@ -8,9 +10,11 @@
   background: var(--bg-primary);
   border-top: 1px solid var(--border-light);
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
-
   /* 하단 Safe Area 대응 (아이폰 노치 등) */
   padding-bottom: max(12px, env(safe-area-inset-bottom));
+  /* 네비게이션 자체가 항상 최상위에 위치 */
+  position: relative;
+  z-index: 100;
 }
 
 /* ── 일반 탭 아이템 ── */
@@ -27,22 +31,12 @@
   min-width: 48px;
 }
 
-.nav-item:hover {
-  color: var(--text-tertiary);
-}
-
-.nav-item.active {
-  color: var(--kyobo-green);
-}
+.nav-item:hover { color: var(--text-tertiary); }
+.nav-item.active { color: var(--kyobo-green); }
 
 /* Lucide 아이콘 전환 애니메이션 */
-.nav-icon {
-  transition: transform 0.2s ease;
-}
-
-.nav-item.active .nav-icon {
-  transform: scale(1.1);
-}
+.nav-icon { transition: transform 0.2s ease; }
+.nav-item.active .nav-icon { transform: scale(1.1); }
 
 .nav-label {
   font-size: 10px;
@@ -50,11 +44,13 @@
   letter-spacing: -0.01em;
 }
 
-/* ── 중앙 FAB (마이룸) ── */
+/* ── 중앙 FAB (마이룸 / 방) ── */
 .nav-fab {
   position: relative;
   margin-top: -26px;
   padding-top: 0;
+  /* FAB가 인접 콘텐츠 위로 올라오도록 z-index 설정 */
+  z-index: 10;
 }
 
 .fab-circle {
@@ -65,34 +61,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(0, 166, 81, 0.28),
     0 1px 4px rgba(107, 63, 160, 0.15);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.25s ease;
-  /* 네비 bar 위에 살짝 겹치도록 테두리 */
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease;
+  /* 네비 바 위에 살짝 겹치도록 테두리 */
   border: 3px solid var(--bg-primary);
+  /* 원형 버튼도 z-index 보장 */
+  position: relative;
+  z-index: 10;
 }
 
 .nav-fab:hover .fab-circle {
   transform: scale(1.08);
-  box-shadow: 
+  box-shadow:
     0 6px 22px rgba(0, 166, 81, 0.35),
     0 2px 6px rgba(107, 63, 160, 0.2);
 }
 
 .nav-fab.active .fab-circle {
-  box-shadow: 
+  box-shadow:
     0 4px 20px rgba(0, 166, 81, 0.45),
     0 1px 4px rgba(107, 63, 160, 0.2);
 }
 
 .fab-icon {
   color: #ffffff;
-  /* 살짝 위로 올려서 시각 중심 보정 */
+  /* 시각 중심 보정 */
   margin-top: -1px;
 }
 
-.nav-fab .nav-label {
-  margin-top: 3px;
-}
+.nav-fab .nav-label { margin-top: 3px; }

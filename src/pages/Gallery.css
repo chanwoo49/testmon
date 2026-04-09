@@ -1,221 +1,353 @@
-/* 사진첩 전체 */
+/* ══════════════════════════════════════
+   사진첩 v2.1 — 책 단위 컬렉션 뷰
+   ══════════════════════════════════════ */
+
 .gallery {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow-y: auto;   /* 상세 카드 스크롤 대응도 함께 */
   background: var(--bg-secondary);
+  overflow: hidden;
 }
 
-.gallery-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: none;
-  background: radial-gradient(circle at 30% 20%, rgba(100, 100, 200, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-/* ========== 그리드 화면 ========== */
 .gallery-content {
   position: relative;
   z-index: 10;
-  padding: 20px;
+  padding: 20px 16px;
   height: 100%;
   overflow-y: auto;
+}
+
+/* ── 페이지 헤더 ── */
+.gallery-page-header {
+  margin-bottom: 20px;
 }
 
 .gallery-title {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
   color: var(--text-primary);
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* 3열 그리드 */
-.gallery-grid {
+.gallery-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════
+   책 단위 섹션
+   ══════════════════════════════════════ */
+.gallery-book-section {
+  margin-bottom: 24px;
+}
+
+.gallery-book-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.gallery-book-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.gallery-book-emoji { font-size: 14px; }
+
+.gallery-book-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.gallery-status-badge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.status-notStarted { background: var(--bg-tertiary); color: var(--text-muted); }
+.status-reading    { background: #E8F5E9; color: var(--kyobo-green); }
+.status-completed  { background: #EEF2FF; color: #4F46E5; }
+
+.gallery-book-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.gallery-book-header-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-light);
+}
+
+.gallery-completion {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════
+   3열 슬롯 그리드
+   ══════════════════════════════════════ */
+.gallery-slot-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 6px;
 }
 
-/* 갤러리 아이템 */
-.gallery-item {
+.gallery-slot {
   aspect-ratio: 1;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 생성된 이미지 슬롯 */
+.slot-generated {
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.18s, box-shadow 0.18s;
 }
-
-.gallery-item:hover {
+.slot-generated:hover {
   transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
-.gallery-item img {
+.slot-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* 빈 슬롯 */
-.gallery-item.empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed var(--border-color);
+.slot-label-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 6px 6px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.45));
+  font-size: 9px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+/* 생성 가능 슬롯 */
+.slot-available {
   background: var(--bg-primary);
+  border: 1.5px dashed #86EFAC;
+  cursor: pointer;
+  gap: 5px;
+  transition: background 0.15s;
+}
+.slot-available:hover {
+  background: #F0FFF8;
 }
 
-.gallery-item.empty:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.08);
+.slot-plus-icon { color: var(--kyobo-green); }
+
+.slot-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--kyobo-green);
+  text-align: center;
+  line-height: 1.3;
+  padding: 0 4px;
 }
 
-.add-icon {
-  font-size: 32px;
+/* 잠금 슬롯 */
+.slot-locked {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  gap: 5px;
+  opacity: 0.55;
+}
+
+.slot-lock-icon { color: var(--text-muted); }
+
+.slot-label-locked {
+  font-size: 10px;
   color: var(--text-muted);
 }
 
-/* ========== 상세 카드 화면 ========== */
-.gallery-detail-header {
-  position: relative;
-  z-index: 20;
+/* ══════════════════════════════════════
+   이미지 상세 뷰
+   ══════════════════════════════════════ */
+.detail-view-header {
   display: flex;
-  justify-content: flex-end;
-  padding: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
-.close-btn {
-  width: 40px;
-  height: 40px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
+.detail-view-book {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-view-emoji { font-size: 20px; }
+
+.detail-view-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.detail-view-slot {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.gallery-close-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
   border-radius: 50%;
   color: var(--text-secondary);
-  box-shadow: var(--shadow-sm);
-  font-size: 18px;
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* 그래픽 카드 */
-.graphic-card {
-  position: relative;
-  z-index: 20;
-  margin: 0 16px 24px;
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* 상단: 책 이미지 + 정보 */
-.card-top {
-  display: flex;
-  gap: 16px;
-  padding: 20px;
-  background: #f8f9fa;
-}
-
-.card-book-image {
-  width: 100px;
-  height: 140px;
-  border-radius: 8px;
-  overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s;
 }
+.gallery-close-btn:hover { background: var(--bg-tertiary); }
 
-.card-book-image img {
+.detail-view-image-wrap {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-secondary);
 }
 
-.card-book-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.card-book-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0 0 4px 0;
-}
-
-.card-book-author {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 12px 0;
-}
-
-.card-dates {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.card-dates p {
-  font-size: 12px;
-  color: #888;
-  margin: 0;
-}
-
-.card-dates span {
-  color: #aaa;
-  margin-right: 8px;
-}
-
-/* 중단: AI 이미지 */
-.card-ai-image {
-  padding: 16px 20px;
-}
-
-.card-ai-image img {
+.detail-view-image {
   width: 100%;
-  max-height: 50vh;
+  display: block;
   object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: calc(100dvh - 180px);
 }
 
-.ai-image-label {
-  font-size: 12px;
-  color: #888;
+/* ══════════════════════════════════════
+   AI 생성 안내 팝업
+   ══════════════════════════════════════ */
+.generate-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 30;
+  border-radius: inherit;
+}
+
+.generate-modal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px 24px;
+  width: 100%;
+  max-width: 300px;
   text-align: center;
-  margin: 12px 0 0 0;
+  position: relative;
 }
 
-/* 하단: 한줄 소감 */
-.card-comment {
-  padding: 16px 20px 24px;
-  background: #fafafa;
-  border-top: 1px solid #eee;
+.generate-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
 }
 
-.comment-label {
+.generate-modal-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #EDE9FE, #D1FAE5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  color: var(--kyobo-purple);
+}
+
+.generate-modal-book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.generate-modal-slot {
   font-size: 12px;
-  color: #888;
-  margin: 0 0 8px 0;
+  color: var(--text-tertiary);
+  margin-bottom: 12px;
 }
 
-.comment-text {
-  font-size: 15px;
-  color: #333;
-  line-height: 1.6;
-  margin: 0;
-  font-weight: 500;
+.generate-modal-hint {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 16px;
+  white-space: pre-line;
 }
+
+.generate-modal-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--kyobo-purple);
+  background: #EDE9FE;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.generate-modal-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0 0 20px;
+}
+
+.generate-modal-close-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--gradient-cta);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: filter 0.2s;
+}
+.generate-modal-close-btn:hover { filter: brightness(1.08); }
